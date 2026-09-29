@@ -16,13 +16,10 @@ pipeline {
 
         stage('Backend Build & Test') {
             steps {
-                dir('backend') {
-                    withCredentials([
-                        string(
-                            credentialsId: 'gemini-api-key',
-                            variable: 'GEMINI_API_KEY'
-                        )
-                    ]) {
+                withCredentials([
+                    string(credentialsId: 'gemini-api-key', variable: 'GEMINI_API_KEY')
+                ]) {
+                    dir('backend') {
                         bat 'mvnw.cmd clean test package'
                     }
                 }
